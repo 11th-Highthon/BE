@@ -44,14 +44,14 @@ export const login = async (loginDto: LoginUserDto): Promise<string> => {
     if (!isPasswordValid) {
         throw new Error("Invalid password");
     }
-    const token = jwt.sign({username: user.username, email: user.email}, "secretKey",{
+    const token = jwt.sign({username: user.username, email: user.email}, process.env.JWT_SECRET_KEY || 'secretKey',{
         expiresIn: "1h"
     });
     return token;
 }
 
 export const verifyToken = async (token: string): Promise<IUser> => {
-    const decoded = jwt.verify(token, "secretKey") as { username: string; email: string };
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY ||  "secretKey") as { username: string; email: string };
     const user = await findByEmail(decoded.email);
     if (!user) {
         throw new Error("User not found");
