@@ -1,6 +1,5 @@
 import { IUser } from "../interfaces/IUser";
 import User from "../schemas/User";
-import mongoose from "mongoose";
 
 export const findOneByEmail = async (email: string): Promise<IUser | null> => {
   return await User.findOne({ email });
