@@ -9,7 +9,7 @@ export class CreateStoryDto {
     prompt?: string;
     useAI: boolean;
     
-    constructor(title: string, description: string, mission: string[], genre: string, useAI: boolean, content?: string, questions?: { questionText: string; choices: string[]; correctAnswer: string; }[], prompt?: string) {
+    constructor(title: string, description: string, mission: string[], genre: string, useAI: boolean, content?: string, prompt?: string) {
         if(!title || !description || !mission) {
             throw new Error("Missing required fields: title, description, mission");
         }

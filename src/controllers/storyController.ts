@@ -11,9 +11,9 @@ export const createStory = async (req: Request, res: Response) => {
             return res.status(401).send({ error: 'User not authenticated' });
         }
 
-        const { title, description, content, mission, questions, genre, prompt, useAI } = req.body;
+        const { title, description, content, mission, genre, prompt, useAI } = req.body;
         const user = await userService.findByEmail(userEmail);
-        const createStoryDto = new CreateStoryDto(title, description, mission, genre, useAI, content, questions, prompt);
+        const createStoryDto = new CreateStoryDto(title, description, mission, genre, useAI, content, prompt);
         const story = await storyService.createStory(createStoryDto, user?.id);
         res.status(201).json(story);
     } catch (error: any) {
