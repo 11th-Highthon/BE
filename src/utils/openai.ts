@@ -113,7 +113,7 @@ const createImagePrompt = async (storyContent: string): Promise<string> => {
 };
 
 const enhancePromptForHorror = (basePrompt: string): string => {
-  return `${basePrompt}, dark horror atmosphere, mysterious shadows, eerie lighting, cinematic composition, high contrast, moody colors, atmospheric fog, gothic style, no gore, no explicit violence, artistic horror illustration`;
+  return `${basePrompt}, dark horror atmosphere, mysterious shadows, eerie lighting, cinematic composition, high contrast, moody colors, atmospheric fog, gothic style, no gore, no explicit violence, artistic horror illustration, without text`;
 };
 
 export const generateStoryImage = async (
