@@ -14,11 +14,23 @@ const userSchema = new Schema({
     email:{
         type: String,
         required: true,
+        unique: true,
     },
     number:{
         type: String,
         required: true,
-    }
-})
+        unique: true,
+    },
+    createdStories: [{
+        type: Schema.Types.ObjectId,
+        ref: 'stories'
+    }],
+    playedStories: [{
+        type: Schema.Types.ObjectId,
+        ref: 'stories'
+    }]
+}, {
+    timestamps: true
+});
 
 export default mongoose.model('User', userSchema);
