@@ -23,6 +23,15 @@ const storySchema = new Schema({
             message: (props: any) => `${props.value} is not a valid URL!`
         },
     },
+    thumbnailUrl: {
+        type: String,
+        validate: {
+            validator: function (v: string) {
+                return /^https?:\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?$/.test(v);
+            },
+            message: (props: any) => `${props.value} is not a valid URL!`
+        },
+    },
     mission: {
         type: String,
         enum: ['question', 'picture'],
