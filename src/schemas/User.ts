@@ -14,11 +14,24 @@ const userSchema = new Schema({
     email:{
         type: String,
         required: true,
+        unique: true,
+        validate: {
+            validator: function (v: string) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+            },
+            message: (props: any) => `${props.value} is not a valid email address!`
+        }
     },
-    number:{
-        type: String,
-        required: true,
-    }
-})
+    createdStories: [{
+        type: Schema.Types.ObjectId,
+        ref: 'stories'
+    }],
+    playedStories: [{
+        type: Schema.Types.ObjectId,
+        ref: 'stories'
+    }]
+}, {
+    timestamps: true
+});
 
-export default mongoose.model('User', userSchema);
+export default mongoose.model('users', userSchema);
