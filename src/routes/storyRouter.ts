@@ -13,7 +13,7 @@ const storyRouter = Router();
 
 /**
  * @swagger
- * /story:
+ * /stories:
  *   post:
  *     summary: Create a new story
  *     tags: [Story]
@@ -39,7 +39,7 @@ storyRouter.post('/',authenticateToken, storyController.createStory);
 
 /**
  * @swagger
- * /story/popular:
+ * /stories/popular:
  *   get:
  *     summary: Get popular stories
  *     tags: [Story]
@@ -72,7 +72,7 @@ storyRouter.get('/popular', storyController.getPopularStories);
 
 /**
  * @swagger
- * /story/new:
+ * /stories/new:
  *   get:
  *     summary: Get new stories
  *     tags: [Story]
@@ -105,7 +105,7 @@ storyRouter.get('/new', storyController.getNewStories);
 
 /**
  * @swagger
- * /story/{id}:
+ * /stories/{id}:
  *   get:
  *     summary: Get a story by ID
  *     tags: [Story]
@@ -132,7 +132,7 @@ storyRouter.get('/:id', storyController.getStoryById);
 
 /**
  * @swagger
- * /story:
+ * /stories:
  *   get:
  *     summary: Get all stories
  *     tags: [Story]

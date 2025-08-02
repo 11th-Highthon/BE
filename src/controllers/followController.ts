@@ -3,6 +3,80 @@ import User from "../schemas/User";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 
+/**
+ * @swagger
+ * /users/follow:
+ *   post:
+ *     summary: Follow a user
+ *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - targetUserId
+ *             properties:
+ *               targetUserId:
+ *                 type: string
+ *                 description: The ID of the user to follow.
+ *     responses:
+ *       200:
+ *         description: Followed successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Followed successfully
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Bad request (e.g., cannot follow self, already following)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: You cannot follow yourself
+ *       401:
+ *         description: Unauthorized (e.g., no token, invalid token)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Unauthorized
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: User not found
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Internal server error
+ */
 export const followUser = async (req: Request, res: Response) => {
   const token = req.header("Authorization")?.replace("Bearer ", "");
   const { targetUserId } = req.body;
@@ -48,6 +122,70 @@ export const followUser = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * @swagger
+ * /uses/unfollow:
+ *   post:
+ *     summary: Unfollow a user
+ *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - targetUserId
+ *             properties:
+ *               targetUserId:
+ *                 type: string
+ *                 description: The ID of the user to unfollow.
+ *     responses:
+ *       200:
+ *         description: Unfollowed successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Unfollowed successfully
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *       401:
+ *         description: Unauthorized (e.g., no token, invalid token)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Unauthorized
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: User not found
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Internal server error
+ */
 export const unfollowUser = async (req: Request, res: Response) => {
   const token = req.header("Authorization")?.replace("Bearer ", "");
   const { targetUserId } = req.body;

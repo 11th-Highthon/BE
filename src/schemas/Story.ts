@@ -170,7 +170,7 @@ const storySchema = new Schema({
     },
     audioUrl: {
         type: String,
-        required: true,
+        required: false,
         validate: {
             validator: function (v: string) {
                 return /^https?:\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?$/.test(v);
@@ -183,7 +183,7 @@ const storySchema = new Schema({
         required: true
     },
     genre: {
-        type: [String],
+        type: String,
         required: true
     },
     

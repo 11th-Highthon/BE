@@ -1,18 +1,20 @@
 
 import { Request, Response } from 'express';
 import * as storyService from '../services/storyService';
+import * as userService from "../services/userService";
 import { CreateStoryDto } from '../dto/story/create-story-dto';
 
 export const createStory = async (req: Request, res: Response) => {
     try {
-        const userId : string = req.user?.id;
-        if (!userId) {
+        const userEmail = req.user?.email;
+        if (!userEmail) {
             return res.status(401).send({ error: 'User not authenticated' });
         }
 
-        const { title, description, content, mission, questions } = req.body;
-        const createStoryDto = new CreateStoryDto(title, description, content, mission, questions);
-        const story = await storyService.createStory(createStoryDto, userId);
+        const { title, description, content, mission, questions, genre, prompt, useAI } = req.body;
+        const user = await userService.findByEmail(userEmail);
+        const createStoryDto = new CreateStoryDto(title, description, mission, genre, useAI, content, questions, prompt);
+        const story = await storyService.createStory(createStoryDto, user?.id);
         res.status(201).json(story);
     } catch (error: any) {
         res.status(400).send({ error: error.message });

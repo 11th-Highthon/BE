@@ -5,7 +5,7 @@ import { LoginUserDto } from '../dto/user/login-user-dto';
 
 /**
  * @swagger
- * /register:
+ * /users/register:
  *   post:
  *     summary: Register a new user
  *     tags: [User]
@@ -63,7 +63,7 @@ export const registerHandler = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /login:
+ * /users/login:
  *   post:
  *     summary: Log in a user
  *     tags: [User]

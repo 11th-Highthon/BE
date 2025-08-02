@@ -13,7 +13,7 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
     return res.sendStatus(401); // No token provided
   }
 
-  jwt.verify(token, process.env.JWT_SECRET as string, (err: any, user: any) => {
+  jwt.verify(token, process.env.JWT_SECRET_KEY as string, (err: any, user: any) => {
     if (err) {
       return res.sendStatus(403); // Invalid token
     }

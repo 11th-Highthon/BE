@@ -3,6 +3,7 @@ import { IStory } from "../interfaces/IStory";
 import * as storyRepository from "../repositories/storyRepository";
 import { CreateStoryDto } from "../dto/story";
 import { generateContent, generateStoryImage } from "../utils/openai";
+import { filterImagePrompt } from "../utils/openai";
 
 /**
  * @todo 평점 시스템 구현
@@ -25,8 +26,9 @@ export const createStory = async (storyData: CreateStoryDto, userId : string): P
     const story = storyData.toEntity();
     story.creator = new mongoose.Types.ObjectId(userId);
 
-    // Generate Thumbnail with OpenAI API
-    story.thumbnailUrl = await generateStoryImage(story.content!);
+    // Generate Thumbnail with OpenAI API (Safe Prompt)
+    const safePrompt = filterImagePrompt(story.content!);
+    story.thumbnailUrl = await generateStoryImage(safePrompt);
 
     return await storyRepository.createStory(story);
 }
