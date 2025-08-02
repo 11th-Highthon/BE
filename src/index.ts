@@ -1,12 +1,10 @@
 import express from 'express';
-import dotenv from 'dotenv';
+import "dotenv/config";
 import swaggerUi from 'swagger-ui-express';
 import './config/database';
 import storyRouter from './routes/storyRouter';
 import userRouter from './routes/userRouter';
 import specs from './config/swagger';
-
-dotenv.config();
 
 const app = express();
 
