@@ -27,13 +27,26 @@ const storySchema = new Schema({
         enum: ['question', 'picture'],
         required: true
     },
-    question: {
-        type: [String],
+    questions: {
+        type: [{
+            questionText: {
+                type: String,
+                required: true
+            },
+            choices: {
+                type: [String],
+                required: true
+            },
+            correctAnswer: {
+                type: String,
+                required: true
+            }
+        }],
         required: function(this: any) { return this.mission === 'question'; },
     },
     creator: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'users',
         required: true
     }
 }, {
