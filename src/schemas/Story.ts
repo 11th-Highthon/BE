@@ -109,9 +109,9 @@ const Schema = mongoose.Schema;
  *       required:
  *         - title
  *         - description
- *         - content
  *         - mission
  *         - genre
+ *         - useAI
  *       properties:
  *         title:
  *           type: string
@@ -121,26 +121,13 @@ const Schema = mongoose.Schema;
  *           type: string
  *           description: A brief description of the story
  *           maxLength: 500
- *         audioUrl:
- *           type: string
- *           description: URL of the story's audio file
- *           format: url
  *         content:
  *           type: string
  *           description: The full content of the story
- *         thumbnailUrl:
- *           type: string
- *           description: URL of the story's thumbnail image
- *           format: url
  *         mission:
  *           type: string
  *           enum: ['question', 'picture']
  *           description: The type of mission associated with the story
- *         genre:
- *           type: array
- *           items:
- *             type: string
- *           description: An array of genres associated with the story
  *         questions:
  *           type: array
  *           description: Array of questions for 'question' type missions (required if mission is 'question')
@@ -159,6 +146,15 @@ const Schema = mongoose.Schema;
  *                   type: string
  *               correctAnswer:
  *                 type: string
+ *         genre:
+ *           type: string
+ *           description: The genre of the story
+ *         prompt:
+ *           type: string
+ *           description: The prompt used for AI story generation
+ *         useAI:
+ *           type: boolean
+ *           description: Indicates if AI is used for story generation
  *
  */
 const storySchema = new Schema({

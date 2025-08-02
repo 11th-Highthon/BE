@@ -4,7 +4,7 @@ export interface IStory extends mongoose.Document {
     title: string;
     description: string;
     audioUrl?: string;
-    content: string;
+    content?: string;
     thumbnailUrl?: string;
     mission: 'question' | 'picture';
     questions?: {
@@ -12,6 +12,9 @@ export interface IStory extends mongoose.Document {
         choices: string[];
         correctAnswer: string;
     }[];
+    prompt?: string;
+    useAI: boolean;
+    genre: string;
     creator: mongoose.Types.ObjectId;
     likes: number;
     likedUser: mongoose.Types.ObjectId[];
