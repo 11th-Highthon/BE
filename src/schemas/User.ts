@@ -16,11 +16,6 @@ const userSchema = new Schema({
         required: true,
         unique: true,
     },
-    number:{
-        type: String,
-        required: true,
-        unique: true,
-    },
     createdStories: [{
         type: Schema.Types.ObjectId,
         ref: 'stories'
