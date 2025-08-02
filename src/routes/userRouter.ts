@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { registerHandler, loginHandler } from "../controllers/userController";
+import { followUser, unfollowUser } from "../controllers/followController";
 
 /**
  * @swagger
@@ -11,5 +12,7 @@ import { registerHandler, loginHandler } from "../controllers/userController";
 const userRouter = Router();
 userRouter.post('/register', registerHandler);
 userRouter.post('/login', loginHandler);
+userRouter.post('/follow', followUser);
+userRouter.post('/unfollow', unfollowUser);
 
 export default userRouter;
