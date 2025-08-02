@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { IStory } from "../interfaces/IStory";
 import * as storyRepository from "../repositories/storyRepository";
 import { CreateStoryDto } from "../dto/story";
-import { generateContent } from "../utils/openai";
+import { generateContent, generateStoryImage } from "../utils/openai";
 
 /**
  * @todo 평점 시스템 구현
@@ -19,15 +19,14 @@ export const createStory = async (storyData: CreateStoryDto, userId : string): P
     }
 
     if (storyData.useAI && storyData.prompt) {
-        storyData.content = await generateContent(storyData.prompt);
+        storyData.content = await generateContent(storyData.prompt, storyData.genre);
     }
 
     const story = storyData.toEntity();
     story.creator = new mongoose.Types.ObjectId(userId);
 
     // Generate Thumbnail with OpenAI API
-    // await generateThumbnail();
-
+    story.thumbnailUrl = await generateStoryImage(story.content!);
 
     return await storyRepository.createStory(story);
 }
