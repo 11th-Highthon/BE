@@ -37,7 +37,9 @@ export class CreateStoryDto {
             description: this.description,
             content: this.content,
             mission: this.mission,
-            questions: this.questions
+            questions: this.questions,
+            genre: this.genre,
+            
         };
     }
 }
