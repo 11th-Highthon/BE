@@ -4,7 +4,7 @@ import * as storyRepository from "../repositories/storyRepository";
 import { CreateStoryDto } from "../dto/story";
 
 export const createStory = async (storyData: CreateStoryDto): Promise<IStory> => {
-    if(!storyData.title || !storyData.description || !storyData.audioUrl || !storyData.mission) {
+    if(!storyData.title || !storyData.description  || !storyData.mission) {
         throw new Error("Missing required fields");
     }
     if(storyData.mission === 'question' && (!storyData.questions || storyData.questions.length === 0)) {
