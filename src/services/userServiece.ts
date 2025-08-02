@@ -1,2 +1,2 @@
-import { registerDto } from "../dto/register-dto";
+import { registerDto } from "../dto/user/register-dto";
 import User from "../schemas/User";
