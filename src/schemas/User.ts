@@ -111,9 +111,19 @@ const userSchema = new Schema({
     likedStories: [{
         type: Schema.Types.ObjectId,
         ref: 'stories'
+    }],
+    followers: [{
+        type: Schema.Types.ObjectId,
+        ref: 'users'
+    }],
+    following: [{
+        type: Schema.Types.ObjectId,
+        ref: 'users'
     }]
 }, {
     timestamps: true
 });
+
+
 
 export default mongoose.model('users', userSchema);
