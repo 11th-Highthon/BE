@@ -5,7 +5,14 @@ import { CreateStoryDto } from '../dto/story/create-story-dto';
 
 export const createStory = async (req: Request, res: Response) => {
     try {
-        const story = await storyService.createStory(req.body as CreateStoryDto);
+        const userId : string = req.user?.id;
+        if (!userId) {
+            return res.status(401).send({ error: 'User not authenticated' });
+        }
+
+        const { title, description, content, mission, questions } = req.body;
+        const createStoryDto = new CreateStoryDto(title, description, content, mission, questions);
+        const story = await storyService.createStory(createStoryDto, userId);
         res.status(201).json(story);
     } catch (error: any) {
         res.status(400).send({ error: error.message });

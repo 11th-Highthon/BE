@@ -12,6 +12,9 @@ export class CreateStoryDto {
     }[];
     
     constructor(title: string, description: string, content: string, mission: 'question' | 'picture', questions?: { questionText: string; choices: string[]; correctAnswer: string; }[]) {
+        if(!title || !description || !mission) {
+            throw new Error("Missing required fields: title, description, mission");
+        }
         this.title = title;
         this.description = description;
         this.content = content;

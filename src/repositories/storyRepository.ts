@@ -3,7 +3,7 @@ import Story from "../schemas/Story";
 import { IStory } from "../interfaces/IStory";
 
 
-export const createStory = async (storyData: IStory) : Promise<IStory> => {
+export const createStory = async (storyData: Partial<IStory>) : Promise<IStory> => {
     const newStory = new Story(storyData);
     return await newStory.save();
 };

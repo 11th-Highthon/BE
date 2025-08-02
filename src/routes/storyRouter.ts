@@ -1,5 +1,6 @@
 import Router from 'express';
 import * as storyController from '../controllers/storyController';
+import { authenticateToken } from '../middleware/authMiddleware';
 
 const storyRouter = Router();
 
@@ -16,6 +17,8 @@ const storyRouter = Router();
  *   post:
  *     summary: Create a new story
  *     tags: [Story]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -32,7 +35,7 @@ const storyRouter = Router();
  *       400:
  *         description: Bad request
  */
-storyRouter.post('/', storyController.createStory);
+storyRouter.post('/',authenticateToken, storyController.createStory);
 
 /**
  * @swagger
@@ -133,6 +136,8 @@ storyRouter.get('/:id', storyController.getStoryById);
  *   get:
  *     summary: Get all stories
  *     tags: [Story]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: A list of all stories
@@ -145,6 +150,6 @@ storyRouter.get('/:id', storyController.getStoryById);
  *       400:
  *         description: Bad request
  */
-storyRouter.get('/', storyController.getAllStories);
+storyRouter.get('/', authenticateToken, storyController.getAllStories);
 
 export default storyRouter;

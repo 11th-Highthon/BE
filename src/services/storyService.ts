@@ -3,7 +3,7 @@ import { IStory } from "../interfaces/IStory";
 import * as storyRepository from "../repositories/storyRepository";
 import { CreateStoryDto } from "../dto/story";
 
-export const createStory = async (storyData: CreateStoryDto): Promise<IStory> => {
+export const createStory = async (storyData: CreateStoryDto, userId : string): Promise<IStory> => {
     if(!storyData.title || !storyData.description  || !storyData.mission) {
         throw new Error("Missing required fields");
     }
@@ -11,9 +11,8 @@ export const createStory = async (storyData: CreateStoryDto): Promise<IStory> =>
         throw new Error("Questions are required for 'question' mission type");
     }
     const story = storyData.toEntity();
-    // TODO: get creator from user authentication
-    story.creator = new mongoose.Types.ObjectId("60d5ec49e02f5a275c2d1b3e");
-    return await storyRepository.createStory(story as IStory);
+    story.creator = new mongoose.Types.ObjectId(userId);
+    return await storyRepository.createStory(story);
 }
 
 export const getStoryById = async (id: string): Promise<IStory | null> => {

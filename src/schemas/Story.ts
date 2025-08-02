@@ -142,6 +142,7 @@ const storySchema = new Schema({
     },
     thumbnailUrl: {
         type: String,
+        required: false,
         validate: {
             validator: function (v: string) {
                 return /^https?:\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?$/.test(v);

@@ -3,7 +3,9 @@ import mongoose from "mongoose";
 export interface IStory extends mongoose.Document {
     title: string;
     description: string;
+    audioUrl?: string;
     content: string;
+    thumbnailUrl?: string;
     mission: 'question' | 'picture';
     questions?: {
         questionText: string;
