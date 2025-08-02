@@ -1,12 +1,7 @@
 import mongoose from "mongoose";
 
 try {
-    mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/highthon', {
-    dbName: "highthon",
-    user: "admin",
-    pass: "mysecurepass",
-    authSource: "admin", 
-    });
+    mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/highthon');
     mongoose.connection.on('connected', () => {
         console.log('Connected to MongoDB');
     });
