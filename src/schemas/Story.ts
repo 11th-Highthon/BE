@@ -198,26 +198,8 @@ const storySchema = new Schema({
         },
     },
     mission: {
-        type: String,
-        enum: ['question', 'picture'],
+        type: [String],
         required: true
-    },
-    questions: {
-        type: [{
-            questionText: {
-                type: String,
-                required: true
-            },
-            choices: {
-                type: [String],
-                required: true
-            },
-            correctAnswer: {
-                type: String,
-                required: true
-            }
-        }],
-        required: function(this: any) { return this.mission === 'question'; },
     },
     creator: {
         type: Schema.Types.ObjectId,

@@ -17,9 +17,6 @@ export const createStory = async (storyData: CreateStoryDto, userId: string): Pr
     if (!storyData.title || !storyData.description || !storyData.mission) {
         throw new Error("Missing required fields");
     }
-    if (storyData.mission === 'question' && (!storyData.questions || storyData.questions.length === 0)) {
-        throw new Error("Questions are required for 'question' mission type");
-    }
 
     if (storyData.useAI && storyData.prompt) {
         storyData.content = await generateContent(storyData.prompt, storyData.genre);

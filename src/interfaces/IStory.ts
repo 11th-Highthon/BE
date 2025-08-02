@@ -6,12 +6,7 @@ export interface IStory extends mongoose.Document {
     audioUrl?: string;
     content?: string;
     thumbnailUrl?: string;
-    mission: 'question' | 'picture';
-    questions?: {
-        questionText: string;
-        choices: string[];
-        correctAnswer: string;
-    }[];
+    mission: string[];
     prompt?: string;
     useAI: boolean;
     genre: string;
