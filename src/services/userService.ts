@@ -2,7 +2,8 @@ import { registerUserDto } from "../dto/user/register-user-dto";
 import { IUser } from "../interfaces/IUser";
 import * as userRepository from "../repositories/userRepository";
 import * as bcrypt from "bcrypt";
-import { loginUserDto } from "../dto/user/login-user-dto";
+import * as jwt from "jsonwebtoken";
+import { LoginUserDto } from "../dto/user/login-user-dto";
 
 export const findByEmail = async (email: string): Promise<IUser | null> => {
   const existingUser = await userRepository.findOneByEmail(email);
@@ -21,7 +22,7 @@ export const registerUser = async (user: registerUserDto): Promise<IUser> => {
   return await userRepository.save(user.toEntity());
 };
 
-export const loginUser = async (user: loginUserDto): Promise<IUser> => {
+export const loginUser = async (user: LoginUserDto): Promise<IUser> => {
     const existingUser = await userRepository.findOneByEmail(user.email);
     if (!existingUser) {
         throw new Error("User not found");
@@ -31,4 +32,30 @@ export const loginUser = async (user: loginUserDto): Promise<IUser> => {
         throw new Error("Password is not valid");
     }
     return existingUser;
+}
+
+
+export const login = async (loginDto: LoginUserDto): Promise<string> => {
+    const user = await userRepository.findOneByEmail(loginDto.email);
+    if(!user) {
+        throw new Error("User not found"); 
+    }
+    const isPasswordValid = bcrypt.compareSync(loginDto.password, user.password);
+    if (!isPasswordValid) {
+        throw new Error("Invalid password");
+    }
+    const token = jwt.sign({username: user.username, email: user.email}, "secretKey",{
+        expiresIn: "1h"
+    });
+    return token;
+}
+
+export const verifyToken = async (token: string): Promise<IUser> => {
+    const decoded = jwt.verify(token, "secretKey") as { username: string; email: string };
+    const user = await findByEmail(decoded.email);
+    if (!user) {
+        throw new Error("User not found");
+    } 
+    return user;
+
 }
