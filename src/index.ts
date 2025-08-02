@@ -5,10 +5,12 @@ import './config/database';
 import storyRouter from './routes/storyRouter';
 import userRouter from './routes/userRouter';
 import specs from './config/swagger';
+import cors from "cors";
 
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
