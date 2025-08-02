@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { IStory } from "../interfaces/IStory";
 import * as storyRepository from "../repositories/storyRepository";
-import { CreateStoryDto, UpdateStoryDto } from "../dto/story";
+import { CreateStoryDto } from "../dto/story";
 
 export const createStory = async (storyData: CreateStoryDto): Promise<IStory> => {
     if(!storyData.title || !storyData.description || !storyData.audioUrl || !storyData.mission) {
@@ -25,13 +25,3 @@ export const getAllStories = async (): Promise<IStory[]> => {
     return await storyRepository.findAllStories();
 }
 
-export const updateStory = async (id: string, storyData: UpdateStoryDto): Promise<IStory | null> => {
-    const storyId = new mongoose.Types.ObjectId(id);
-    const story = storyData.toEntity();
-    return await storyRepository.updateStory(storyId, story);
-}
-
-export const deleteStory = async (id: string): Promise<IStory | null> => {
-    const storyId = new mongoose.Types.ObjectId(id);
-    return await storyRepository.deleteStory(storyId);
-}

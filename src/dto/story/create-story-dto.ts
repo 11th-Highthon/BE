@@ -3,7 +3,7 @@ import { IStory } from "../../interfaces/IStory";
 export class CreateStoryDto {
     title: string;
     description: string;
-    audioUrl: string;
+    content: string;
     mission: 'question' | 'picture';
     questions?: {
         questionText: string;
@@ -11,10 +11,10 @@ export class CreateStoryDto {
         correctAnswer: string;
     }[];
     
-    constructor(title: string, description: string, audioUrl: string, mission: 'question' | 'picture', questions?: { questionText: string; choices: string[]; correctAnswer: string; }[]) {
+    constructor(title: string, description: string, content: string, mission: 'question' | 'picture', questions?: { questionText: string; choices: string[]; correctAnswer: string; }[]) {
         this.title = title;
         this.description = description;
-        this.audioUrl = audioUrl;
+        this.content = content;
         this.mission = mission;
         this.questions = questions; 
         if (this.mission === 'question' && (!this.questions || this.questions.length === 0)) {
@@ -26,7 +26,7 @@ export class CreateStoryDto {
        return {
             title: this.title,
             description: this.description,
-            audioUrl: this.audioUrl,
+            content: this.content,
             mission: this.mission,
             questions: this.questions
         };

@@ -23,6 +23,10 @@ const storySchema = new Schema({
             message: (props: any) => `${props.value} is not a valid URL!`
         },
     },
+    content: {
+        type: String,
+        required: true
+    },
     thumbnailUrl: {
         type: String,
         validate: {
