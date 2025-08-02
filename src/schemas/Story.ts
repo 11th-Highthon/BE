@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { IStory } from "../interfaces/IStory";
 const Schema = mongoose.Schema;
 
 const storySchema = new Schema({
@@ -53,4 +54,4 @@ const storySchema = new Schema({
     timestamps: true
 });
 
-export default mongoose.model("stories", storySchema);
+export default mongoose.model<IStory>("stories", storySchema);
