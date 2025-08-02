@@ -124,7 +124,7 @@ export const followUser = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /uses/unfollow:
+ * /users/unfollow:
  *   post:
  *     summary: Unfollow a user
  *     tags: [User]

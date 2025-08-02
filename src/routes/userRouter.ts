@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { registerHandler, loginHandler } from "../controllers/userController";
+import { myPageHandler, userProfileHandler } from "../controllers/userController";
 import { followUser, unfollowUser } from "../controllers/followController";
 
 /**
@@ -10,8 +11,11 @@ import { followUser, unfollowUser } from "../controllers/followController";
  */
 
 const userRouter = Router();
+
 userRouter.post('/register', registerHandler);
 userRouter.post('/login', loginHandler);
+userRouter.get('/me', myPageHandler);
+userRouter.get('/profile/:id', userProfileHandler);
 userRouter.post('/follow', followUser);
 userRouter.post('/unfollow', unfollowUser);
 

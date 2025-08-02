@@ -1,3 +1,4 @@
+
 import { registerUserDto } from "../dto/user/register-user-dto";
 import { IUser } from "../interfaces/IUser";
 import * as userRepository from "../repositories/userRepository";
@@ -8,6 +9,14 @@ import { LoginUserDto } from "../dto/user/login-user-dto";
 export const findByEmail = async (email: string): Promise<IUser | null> => {
   const existingUser = await userRepository.findOneByEmail(email);
   return existingUser;
+};
+
+export const getMyProfile = async (userId: string): Promise<IUser | null> => {
+  return await userRepository.findById(userId);
+};
+
+export const getUserProfile = async (userId: string): Promise<IUser | null> => {
+  return await userRepository.findById(userId);
 };
 
 export const registerUser = async (user: registerUserDto): Promise<IUser> => {
