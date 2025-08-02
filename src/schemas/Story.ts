@@ -62,7 +62,15 @@ const storySchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'users',
         required: true
-    }
+    },
+    likes: {
+        type: Number,
+        default: 0,
+    },
+    likedUser: [{
+        type: Schema.Types.ObjectId,
+        ref: 'users'
+    }]
 }, {
     timestamps: true
 });

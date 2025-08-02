@@ -29,6 +29,10 @@ const userSchema = new Schema({
     playedStories: [{
         type: Schema.Types.ObjectId,
         ref: 'stories'
+    }],
+    likedStories: [{
+        type: Schema.Types.ObjectId,
+        ref: 'stories'
     }]
 }, {
     timestamps: true

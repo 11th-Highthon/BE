@@ -25,3 +25,11 @@ export const getAllStories = async (): Promise<IStory[]> => {
     return await storyRepository.findAllStories();
 }
 
+export const getPopularStories = async (page: number, limit: number): Promise<IStory[]> => {
+    return await storyRepository.getPopularStories(page, limit);
+}
+
+export const getNewStories = async (page: number, limit: number): Promise<IStory[]> => {
+    return await storyRepository.getNewStories(page, limit);
+}
+

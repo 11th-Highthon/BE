@@ -11,4 +11,6 @@ export interface IStory extends mongoose.Document {
         correctAnswer: string;
     }[];
     creator: mongoose.Types.ObjectId;
+    likes: number;
+    likedUser: mongoose.Types.ObjectId[];
 }
