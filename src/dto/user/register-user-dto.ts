@@ -1,3 +1,4 @@
+
 import { IUser } from "../../interfaces/IUser";
 
 export class registerUserDto {

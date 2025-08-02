@@ -68,6 +68,34 @@ const Schema = mongoose.Schema;
  *           description: Array of user IDs who liked the story
  *           items:
  *             type: string
+ *         rating:
+ *           type: number
+ *           description: The average rating of the story
+ *           default: 0
+ *         experienceCount:
+ *           type: number
+ *           description: The number of times the story has been experienced
+ *           default: 0
+ *         level:
+ *           type: number
+ *           description: The level of the story
+ *           default: 0
+ *         comments:
+ *           type: array
+ *           description: Array of comments on the story
+ *           items:
+ *             type: object
+ *             properties:
+ *               user:
+ *                 type: string
+ *                 description: The ID of the user who made the comment
+ *               text:
+ *                 type: string
+ *                 description: The comment text
+ *               createdAt:
+ *                 type: string
+ *                 format: date-time
+ *                 description: The date and time when the comment was created
  *         createdAt:
  *           type: string
  *           format: date-time
@@ -83,6 +111,7 @@ const Schema = mongoose.Schema;
  *         - description
  *         - content
  *         - mission
+ *         - genre
  *       properties:
  *         title:
  *           type: string
@@ -92,18 +121,35 @@ const Schema = mongoose.Schema;
  *           type: string
  *           description: A brief description of the story
  *           maxLength: 500
+ *         audioUrl:
+ *           type: string
+ *           description: URL of the story's audio file
+ *           format: url
  *         content:
  *           type: string
  *           description: The full content of the story
+ *         thumbnailUrl:
+ *           type: string
+ *           description: URL of the story's thumbnail image
+ *           format: url
  *         mission:
  *           type: string
  *           enum: ['question', 'picture']
  *           description: The type of mission associated with the story
+ *         genre:
+ *           type: array
+ *           items:
+ *             type: string
+ *           description: An array of genres associated with the story
  *         questions:
  *           type: array
  *           description: Array of questions for 'question' type missions (required if mission is 'question')
  *           items:
  *             type: object
+ *             required:
+ *               - questionText
+ *               - choices
+ *               - correctAnswer
  *             properties:
  *               questionText:
  *                 type: string
@@ -140,6 +186,11 @@ const storySchema = new Schema({
         type: String,
         required: true
     },
+    genre: {
+        type: [String],
+        required: true
+    },
+    
     thumbnailUrl: {
         type: String,
         required: false,
@@ -184,6 +235,33 @@ const storySchema = new Schema({
     likedUser: [{
         type: Schema.Types.ObjectId,
         ref: 'users'
+    }],
+    rating: {
+        type: Number,
+        default: 0
+    },
+    experienceCount: {
+        type: Number,
+        default: 0
+    },
+    level: {
+        type: Number,
+        default: 0
+    },
+    comments: [{
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: 'users',
+            required: true
+        },
+        text: {
+            type: String,
+            required: true
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now
+        }
     }]
 }, {
     timestamps: true
