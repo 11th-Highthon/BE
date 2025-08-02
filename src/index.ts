@@ -1,9 +1,10 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
-import swaggerJsdoc from 'swagger-jsdoc';
 import './config/database';
 import storyRouter from './routes/storyRouter';
+import userRouter from './routes/userRouter';
+import specs from './config/swagger';
 
 dotenv.config();
 
@@ -11,27 +12,10 @@ const app = express();
 
 app.use(express.json());
 
-const options = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Story API',
-      version: '1.0.0',
-      description: 'API documentation for the Story service',
-    },
-    servers: [
-      {
-        url: `http://localhost:${process.env.PORT || 3000}`,
-      },
-    ],
-  },
-  apis: ['./src/routes/*.ts', './src/schemas/*.ts'], // files containing annotations as above
-};
-
-const specs = swaggerJsdoc(options);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 app.use('/stories', storyRouter);
+app.use('/users', userRouter);
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`Server is running on port http://localhost:${process.env.PORT || 3000}`);
