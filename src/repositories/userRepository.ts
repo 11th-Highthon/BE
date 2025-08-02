@@ -5,6 +5,6 @@ import mongoose from "mongoose";
 export const findOneByEmail = async (email: string): Promise<IUser | null> => {
   return await User.findOne({ email });
 };
-export const save = async (user: IUser): Promise<IUser> => {
+export const save = async (user: Partial<IUser>): Promise<IUser> => {
   return await User.create(user);
 };
